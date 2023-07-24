@@ -30,7 +30,7 @@ springdoc:
   default-produces-media-type: application/json;charset=UTF-8
   paths-to-match: /**
   swagger-ui:
-    path: /
+    path: / # 메인페이지에서 swagger로 이동
     display-request-duration: true
     groups-order: desc
     operations-sorter: alpha
