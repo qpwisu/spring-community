@@ -52,9 +52,9 @@ public class Member {
     }
 
     public void update(MemberUpdateRequest newMember, PasswordEncoder encoder) {
-        this.password = newMember.newPassword() == null || newMember.newPassword().isBlank()
-                ? this.password : encoder.encode(newMember.newPassword());
-        this.name = newMember.name();
-        this.age = newMember.age();
+        this.password = newMember.getNewPassword() == null || newMember.getNewPassword().isBlank()
+                ? this.password : encoder.encode(newMember.getNewPassword());
+        this.name = newMember.getName();
+        this.age = newMember.getAge();
     }
 }

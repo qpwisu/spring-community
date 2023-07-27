@@ -1,15 +1,20 @@
 package com.hany.springcommunity.dto.member.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-public record MemberUpdateRequest(
+@Data
+public class MemberUpdateRequest {
         @Schema(description = "회원 비밀번호", example = "1234")
-        String password,
+        private String password;
+
         @Schema(description = "회원 새 비밀번호", example = "1234")
-        String newPassword,
+        private String newPassword;
+
         @Schema(description = "회원 이름", example = "콜라곰")
-        String name,
+        private String name;
+
         @Schema(description = "회원 나이", example = "30")
-        Integer age
-) {
+        private Integer age;
+
 }

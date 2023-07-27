@@ -7,6 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BoardRepository extends JpaRepository<Board, UUID> {
-    List<Board> findByTitleContaining(String title);
-    Optional<Board> findByIdAndMemberId(UUID postId, UUID memberId);
+//    List<Board> findByTitleContaining(String title);
+    Optional<Board> findById(UUID postId);
 }

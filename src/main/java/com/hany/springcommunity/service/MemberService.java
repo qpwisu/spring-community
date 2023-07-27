@@ -22,7 +22,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberInfoResponse getMemberInfo(UUID id) {
         return memberRepository.findById(id)
-                .map(MemberInfoResponse::from)
+                .map(MemberInfoResponse::toDto)
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원입니다."));
     }
 
@@ -36,10 +36,10 @@ public class MemberService {
     @Transactional
     public MemberUpdateResponse updateMember(UUID id, MemberUpdateRequest request) {
         return memberRepository.findById(id)
-                .filter(member -> encoder.matches(request.password(), member.getPassword()))
+                .filter(member -> encoder.matches(request.getPassword(), member.getPassword()))
                 .map(member -> {
                     member.update(request, encoder);
-                    return MemberUpdateResponse.of(true, member);
+                    return MemberUpdateResponse.toDto(true, member);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다."));
     }
