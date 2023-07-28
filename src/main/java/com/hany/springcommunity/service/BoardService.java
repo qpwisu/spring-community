@@ -3,19 +3,23 @@ package com.hany.springcommunity.service;
 import com.hany.springcommunity.dto.board.request.BoardCreateRequest;
 import com.hany.springcommunity.dto.board.request.BoardUpdateRequest;
 import com.hany.springcommunity.dto.board.response.BoardInfoResponse;
+import com.hany.springcommunity.dto.board.response.BoardListResponse;
 import com.hany.springcommunity.dto.member.response.MemberInfoResponse;
 import com.hany.springcommunity.entity.Board;
 import com.hany.springcommunity.entity.Member;
 import com.hany.springcommunity.repository.BoardRepository;
 import com.hany.springcommunity.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -24,10 +28,18 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
-    public BoardInfoResponse getBoard(UUID id) {
+    public BoardInfoResponse getBoard(Long id) {
         return boardRepository.findById(id)
                 .map(BoardInfoResponse::toDto)
                 .orElseThrow(()-> new NoSuchElementException("존재하지 않는 게시글입니다"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardListResponse> getBoardsByCategory(String category, Pageable pageable) {
+        List<Board> boards = boardRepository.findByCategory(category, pageable);
+        return boards.stream()
+                .map(BoardListResponse::toDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional

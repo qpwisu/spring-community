@@ -20,6 +20,9 @@ public class Board {
     private Long id; // 게시글의 ID를 Long 타입으로 변경
 
     @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
@@ -39,16 +42,18 @@ public class Board {
         return Board.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
+                .category(request.getCategory())
                 .author(author)
                 .createdAt(LocalDateTime.now()) // Set creation time to now
                 .build();
     }
 
     @Builder
-    private Board(Member author, String title, String content, LocalDateTime createdAt) {
+    private Board(Member author, String title, String content, String category, LocalDateTime createdAt) {
         this.author = author;
         this.title = title;
         this.content = content;
+        this.category= category;
         this.createdAt = createdAt; // Include createdAt in the constructor
     }
 
