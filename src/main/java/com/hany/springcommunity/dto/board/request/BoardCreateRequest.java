@@ -1,5 +1,6 @@
 package com.hany.springcommunity.dto.board.request;
 
+import com.hany.springcommunity.entity.Category;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

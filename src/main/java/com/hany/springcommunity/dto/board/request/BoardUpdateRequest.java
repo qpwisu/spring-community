@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class BoardUpdateRequest {
+    @Schema(description = "게시글 ID", example = "1")
+    private Long id;
+
     @Schema(description = "게시글 제목", example = "게시글 제목 예시")
     private String title;
 

@@ -19,11 +19,11 @@ public class BoardInfoResponse {
     @Schema(description = "게시글 내용", example = "게시글 내용 예시")
     private String content;
 
-    @Schema(description = "게시글 카테고리", example = "게시글 카테고리 예시")
+    @Schema(description = "게시글 카테고리", example = "자유게시판")
     private String category;
 
-    @Schema(description = "작성자 ID", example = "123e4567-e89b-12d3-a456-426614174000")
-    private UUID authorId;
+    @Schema(description = "작성자 ID", example = "hany")
+    private String authorAccount;
 
     @Schema(description = "게시글 작성일", example = "2023-07-24T10:15:30")
     private LocalDateTime createdAt;
@@ -38,9 +38,9 @@ public class BoardInfoResponse {
         return BoardInfoResponse.builder()
                 .id(board.getId())
                 .title(board.getTitle())
-                .content(board.getTitle())
-                .authorId(board.getAuthor().getId())
-                .category(board.getCategory())
+                .content(board.getContent())
+                .authorAccount(board.getAuthor().getAccount())
+                .category(board.getCategory().getName())
                 .createdAt(board.getCreatedAt())
                 .likesCount(board.getLikesCount())
                 .commentsCount(board.getCommentsCount())

@@ -4,10 +4,7 @@ import com.hany.springcommunity.common.MemberType;
 import com.hany.springcommunity.dto.member.request.MemberUpdateRequest;
 import com.hany.springcommunity.dto.sign_up.request.SignUpRequest;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,7 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@ToString
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @Column(nullable = false, scale = 20, unique = true)
     private String account;
     @Column(nullable = false)
@@ -28,9 +29,7 @@ public class Member {
     private MemberType type;
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+
 
     public static Member from(SignUpRequest request, PasswordEncoder encoder) {
         return Member.builder()
